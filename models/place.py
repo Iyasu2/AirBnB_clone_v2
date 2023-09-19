@@ -5,6 +5,7 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from os import environ
 
+
 class Place(BaseModel):
     """ A place to stay """
     if environ.get('HBNB_TYPE_STORAGE') == 'db':

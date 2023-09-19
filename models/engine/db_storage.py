@@ -34,7 +34,7 @@ class DBStorage:
         """Queries all or a specified class of objects from the database"""
         obj_dict = {}
         if cls:
-            if type(cls) == str:
+            if isinstance(cls, str):
                 cls = eval(cls)
             for obj in self.__session.query(cls).all():
                 key = "{}.{}".format(type(obj).__name__, obj.id)

@@ -31,9 +31,6 @@ class DBStorage:
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
-        Session = scoped_session(sessionmaker(expire_on_commit=False))
-        self.__session = Session()
-
     def all(self, cls=None):
         """Query all objects of optional class"""
         classes = {

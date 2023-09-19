@@ -40,7 +40,7 @@ class BaseModel:
     def __str__(self):
         """Return string representation"""
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__)
+            (str(type(self)).split('.')[-1]).split('\'')[0], self.id, self.__dict__)
 
     def save(self):
         """Update updated_at time on change"""
@@ -50,14 +50,15 @@ class BaseModel:
 
     def to_dict(self):
         """Convert to dictionary"""
-        dictionary = self.__dict__.copy()
-        dictionary["__class__"] = type(self).__name__
+        dictionary = {}
+        dictionary.update(self.__dict__)
+        dictionary.update({'__class__':(str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
-        if "_sa_instance_state" in dictionary:
+        if "_sa_instance_state" in dictionary.keys():
             del dictionary["_sa_instance_state"]
         return dictionary
 
     def delete(self):
         """Delete instance"""
-        models.storage.delete(self)
+        models.storage.delete()

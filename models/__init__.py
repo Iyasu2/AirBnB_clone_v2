@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""
-This module initializes the storage system for the AirBnB clone project
-"""
+"""This module instantiates an instance of the Storage will be used"""
 
 from os import getenv
 
-if getenv("HBNB_TYPE_STORAGE") == "db":
+storage_type = getenv('HBNB_TYPE_STORAGE')
+
+if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:

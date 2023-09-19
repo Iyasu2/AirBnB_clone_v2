@@ -13,6 +13,7 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 
+
 class DBStorage:
     """Handles database storage engine"""
     __engine = None
@@ -43,7 +44,7 @@ class DBStorage:
         }
         result = {}
         query_rows = []
-        
+
         if cls:
             if type(cls) is str:
                 cls = eval(cls)

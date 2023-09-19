@@ -12,7 +12,7 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         filtered = {}
         if cls:
-            for key,value in FileStorage.__objects.items():
+            for key, value in FileStorage.__objects.items():
                 if value.__class__ == cls:
                     filtered[key] = value
             return filtered

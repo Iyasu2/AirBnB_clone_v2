@@ -29,12 +29,10 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
 
     reviews = relationship('Review', cascade='all, delete', backref='place')
     amenities = relationship(
-            'Amenity', secondary=place_amenity, viewonly=False,
-            backref='place_amenities')
+            'Amenity', secondary=place_amenity, viewonly=False)
 
     @property
     def reviews(self):
@@ -43,7 +41,7 @@ class Place(BaseModel, Base):
         from models.review import Review
 
         review_list = []
-        review_dict = storage.all(Review)
+        review_dict = storage.all('Review')
         for review in review_dict.values():
             if review.place_id == self.id:
                 review_list.append(review)
@@ -54,7 +52,15 @@ class Place(BaseModel, Base):
         """
         Returns the list of `Amenity` instances
         """
-        return self.amenity_ids
+        from models import storage
+        from models.amenity import Amenity
+
+        amenity_list = []
+        amenity_dict = storage.all('Amenity')
+        for amenity in amenity_dict.values():
+            if amenity.amenity_ids == self.id:
+                amenity_list.append(amenity)
+        return amenity_list
 
     @amenities.setter
     def amenities(self, obj=None):

@@ -4,8 +4,7 @@
 from datetime import datetime
 import models
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DATETIME
-from sqlalchemy import DateTime
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from uuid import uuid4
 
 Base = declarative_base()
@@ -14,7 +13,7 @@ Base = declarative_base()
 class BaseModel:
     """Base class for all models in AirBnB clone"""
 
-    id = Column(String(60), primary_key=True, nullable=False)
+    id = Column(String(60), primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -40,7 +39,8 @@ class BaseModel:
     def __str__(self):
         """Return string representation"""
         return "[{}] ({}) {}".format(
-            (str(type(self)).split('.')[-1]).split('\'')[0], self.id, self.__dict__)
+            (str(type(self)).split('.')[-1])
+            .split('\'')[0], self.id, self.__dict__)
 
     def save(self):
         """Update updated_at time on change"""
@@ -52,7 +52,8 @@ class BaseModel:
         """Convert to dictionary"""
         dictionary = {}
         dictionary.update(self.__dict__)
-        dictionary.update({'__class__':(str(type(self)).split('.')[-1]).split('\'')[0]})
+        dictionary.update({'__class__': (str(type(self))
+                                         .split('.')[-1]).split('\'')[0]})
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
         if "_sa_instance_state" in dictionary.keys():

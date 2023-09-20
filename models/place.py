@@ -67,5 +67,5 @@ class Place(BaseModel, Base):
         """
         handles append method for adding
     """
-        if type(obj) is Amenity and obj.id not in self.amenity_ids:
+        if type(obj) is Amenity:
             self.amenity_ids.append(obj.id)

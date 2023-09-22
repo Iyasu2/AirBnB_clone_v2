@@ -50,13 +50,7 @@ class Place(BaseModel, Base):
         """
         Returns the list of `Amenity` instances
         """
-        from models import storage
-        from models.amenity import Amenity
-
-        amenity_list = []
-        for amenity in self.amenity_ids:
-            amenity_list.append(Amenity.get(amenity))
-        return amenity_list
+        return self.amenities
 
     @amenities.setter
     def amenities(self, obj=None):

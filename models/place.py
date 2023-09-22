@@ -42,10 +42,8 @@ class Place(BaseModel, Base):
         from models.review import Review
 
         review_list = []
-        review_dict = storage.all('Review')
-        for review in review_dict.values():
-            if review.place_id == self.id:
-                review_list.append(review)
+        for review in self.review_ids:
+            review_list.append(Review.get(review))
         return review_list
 
     @property

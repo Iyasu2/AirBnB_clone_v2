@@ -57,10 +57,8 @@ class Place(BaseModel, Base):
         from models.amenity import Amenity
 
         amenity_list = []
-        amenity_dict = storage.all('Amenity')
-        for amenity in amenity_dict.values():
-            if amenity.amenity_ids == self.id:
-                amenity_list.append(amenity)
+        for amenity in self.amenity_ids:
+            amenity_list.append(Amenity.get(amenity))
         return amenity_list
 
     @amenities.setter

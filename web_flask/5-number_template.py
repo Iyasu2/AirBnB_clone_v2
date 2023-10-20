@@ -3,6 +3,7 @@
 this module starts a basic application
 '''
 from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
 
@@ -47,6 +48,14 @@ def input_number(n):
     this function returns a text
     '''
     return f"{n} is a number"
+
+
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def number_template(n):
+    '''
+    this function returns a text
+    '''
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
